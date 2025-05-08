@@ -4,11 +4,17 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb;
-  color: #333;
+/* src/index.css */
+body {
+  background-color: #000 !important;
+  color: #F5DEB3;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* Links */
@@ -83,7 +89,10 @@ button {
 button:hover {
   background-color: #2563eb;
 }
-
+::placeholder {
+  color: #F5DEB3 !important;
+  opacity: 1 !important;
+}
 /* Messages Page */
 .message-card {
   background-color: #f3f4f6;
