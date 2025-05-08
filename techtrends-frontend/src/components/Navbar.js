@@ -1,18 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className="flex flex-wrap justify-center bg-blue-800 text-white py-4 shadow">
-      {['Home', 'About', 'Contact', 'Messages'].map((item) => (
-        <Link
-          key={item}
-          to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-          className="mx-4 hover:text-blue-200 transition"
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <div className="container">
+        <Link className="navbar-brand" to="/">TechTrends</Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
         >
-          {item}
-        </Link>
-      ))}
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="mainNav">
+          <ul className="navbar-nav ms-auto">
+            {[
+              { name: 'Home',    path: '/' },
+              { name: 'About',   path: '/about' },
+              { name: 'Contact', path: '/contact' },
+              { name: 'Messages',path: '/messages' }
+            ].map(item => (
+              <li className="nav-item" key={item.name}>
+                <NavLink className="nav-link" to={item.path} end>
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }

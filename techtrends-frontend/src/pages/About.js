@@ -1,56 +1,105 @@
+// src/pages/About.js
 import React from 'react';
 
 export default function About() {
   const sectionStyle = {
-    padding: '40px',
-    backgroundColor: '#ffffff',
-    minHeight: '100vh',
+    padding: '60px 0',
     fontFamily: 'Arial, sans-serif',
+    background: 'linear-gradient(135deg, #e0f7fa 0%, #80deea 100%)',
+    animation: 'fadeIn 1s ease-out'
   };
 
   const headingStyle = {
-    fontSize: '36px',
-    color: '#1e40af',
+    color: '#0d6efd',
     marginBottom: '20px',
+    textShadow: '1px 1px 2px rgba(0,0,0,0.1)'
   };
 
-  const paragraphStyle = {
-    color: '#374151',
-    marginBottom: '24px',
+  const textStyle = {
+    color: '#495057',
     maxWidth: '700px',
-    lineHeight: '1.6',
+    margin: '0 auto 40px',
+    lineHeight: 1.6
   };
 
-  const mapContainerStyle = {
-    width: '100%',
-    height: '400px',
-    marginBottom: '20px',
+  const mapWrapper = {
     borderRadius: '10px',
     overflow: 'hidden',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    marginBottom: '40px',
+    height: '400px'
   };
 
-  const iframeStyle = {
-    width: '100%',
-    height: '100%',
-    border: '0',
-  };
+  const features = [
+    { icon: 'bi-phone',      text: 'Flagship Smartphones' },
+    { icon: 'bi-house-door', text: 'Smart Home Devices' },
+    { icon: 'bi-gear',       text: 'On-site Expert Support' },
+    { icon: 'bi-truck',      text: 'Fast Local Delivery' }
+  ];
+
+  // Eight stock gallery images
+  const galleryImages = [
+    
+  ];
 
   return (
     <section style={sectionStyle}>
-      <h2 style={headingStyle}>About TechTrends Ltd</h2>
-      <p style={paragraphStyle}>
-        Located in the heart of Kigali City, TechTrends Ltd specializes in delivering the latest electronic gadgets,
-        from smartphones to smart home devices, all backed by a dedicated local support team.
-      </p>
-      <div style={mapContainerStyle}>
-        <iframe
-          style={iframeStyle}
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d205021.7823261827!2d29.867272605745598!3d-1.9710493332033483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca5a587d7a5dd%3A0x732077ad7d5b38b6!2sNyarugenge%2C%20Kigali!5e1!3m2!1sen!2srw!4v1746603362619!5m2!1sen!2srw"
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div className="container">
+        <h2 className="text-center" style={headingStyle}>
+          About TechTrends Ltd
+        </h2>
+        <p className="text-center" style={textStyle}>
+          Located in the heart of Kigali City, TechTrends Ltd specializes in the latest electronic gadgets—
+          from flagship smartphones to cutting-edge smart home devices—all supported by a local expert team.
+        </p>
+
+        <div style={mapWrapper} className="mx-auto mb-5">
+          <iframe
+            title="TechTrends Kigali Location"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d205021.7823261827!2d29.867272605745598!3d-1.9710493332033483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca5a587d7a5dd%3A0x732077ad7d5b38b6!2sNyarugenge%2C%20Kigali!5e1!3m2!1sen!2srw!4v1746603362619!5m2!1sen!2srw"
+            width="100%" height="100%"
+            style={{ border: 0 }}
+            allowFullScreen loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+          {features.map((f, i) => (
+            <div className="col" key={i}>
+              <div className="card h-100 text-center p-3"
+                   style={{ transition:'transform .3s, box-shadow .3s', cursor:'pointer' }}
+                   onMouseOver={e => {
+                     e.currentTarget.style.transform = 'translateY(-8px)';
+                     e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)';
+                   }}
+                   onMouseOut={e => {
+                     e.currentTarget.style.transform = '';
+                     e.currentTarget.style.boxShadow = '';
+                   }}>
+                <i className={`bi ${f.icon} display-4 text-primary mb-3`}></i>
+                <div className="card-body">
+                  <h5 className="card-title">{f.text}</h5>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="row row-cols-1 row-cols-md-4 g-3">
+          {galleryImages.map((img, idx) => (
+            <div className="col" key={idx}>
+              <img
+                src={`/images/${img}`}
+                alt={`Gallery ${idx+1}`}
+                className="img-fluid rounded shadow-sm"
+                style={{ transition: 'transform .3s' }}
+                onMouseOver={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+                onMouseOut={e => (e.currentTarget.style.transform = 'scale(1)')}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

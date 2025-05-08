@@ -3,31 +3,39 @@ import axios from 'axios';
 
 export default function Messages() {
   const [messages, setMessages] = useState([]);
-
   useEffect(() => {
     axios.get('/api/messages')
-      .then((res) => setMessages(res.data))
+      .then(res => setMessages(res.data))
       .catch(() => setMessages([]));
   }, []);
 
   return (
-    <section className="p-10 bg-white min-h-screen">
-      <h2 className="text-4xl font-bold text-blue-800 mb-6">Submitted Messages</h2>
-      {messages.length === 0 ? (
-        <p className="text-gray-600">No messages found.</p>
-      ) : (
-        <div className="space-y-4">
-          {messages.map((msg, idx) => (
-            <div key={idx} className="message-card">
-              <h3 className="text-xl font-semibold text-blue-700">{msg.name}</h3>
-              <p className="text-sm text-gray-500 mb-2">{msg.email}</p>
-              <p className="text-gray-700">{msg.message}</p>
-              <p className="text-xs text-gray-400 mt-2 text-right">
-                {new Date(msg.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-    </section>)
+    <section className="py-5">
+      <div className="container">
+        <h2 className="text-center text-primary mb-4">Submitted Messages</h2>
+        {messages.length === 0 ? (
+          <p className="text-center text-muted">No messages found.</p>
+        ) : (
+          <div className="row g-4">
+            {messages.map((msg, idx) => (
+              <div className="col-md-6" key={idx}>
+                <div className="card shadow-sm h-100">
+                  <div className="card-body">
+                    <h5 className="card-title">{msg.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{msg.email}</h6>
+                    <p className="card-text">{msg.message}</p>
+                  </div>
+                  <div className="card-footer text-end">
+                    <small className="text-muted">
+                      {new Date(msg.createdAt).toLocaleString()}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

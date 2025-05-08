@@ -103,3 +103,10 @@ button:hover {
     padding: 0.5rem 1rem;
   }
 }
+/* ...existing styles... */
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

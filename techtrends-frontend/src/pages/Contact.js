@@ -2,55 +2,73 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name:'', email:'', message:'' });
   const [status, setStatus] = useState('');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const submit = async (e) => {
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const submit       = async e => {
     e.preventDefault();
     try {
       await axios.post('/api/messages', form);
       setStatus('✅ Message sent successfully!');
-      setForm({ name: '', email: '', message: '' });
-    } catch (err) {
+      setForm({ name:'', email:'', message:'' });
+    } catch {
       setStatus('❌ Submission failed. Please try again.');
     }
   };
 
   return (
-    <section className="p-10 bg-gray-50 min-h-screen">
-      <h2 className="text-4xl font-bold text-blue-800 mb-6 text-center">Contact Us</h2>
-      <form onSubmit={submit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
-        {['name', 'email', 'message'].map((field) => (
-          field !== 'message' ? (
+    <section className="py-5" style={{ backgroundColor:'#f1f5f9' }}>
+      <div className="container">
+        <h2 className="text-center text-primary mb-4">Contact Us</h2>
+        <form onSubmit={submit} className="row g-4 mx-auto" style={{ maxWidth:'600px' }}>
+          <div className="col-md-6">
             <input
-              key={field}
-              name={field}
-              type={field === 'email' ? 'email' : 'text'}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              value={form[field]}
+              name="name"
+              type="text"
+              placeholder="Your Name"
+              value={form.name}
               onChange={handleChange}
-              className="w-full mb-4 p-3 border border-gray-300 rounded focus:border-blue-500"
+              className="form-control form-control-lg"
               required
             />
-          ) : (
+          </div>
+          <div className="col-md-6">
+            <input
+              name="email"
+              type="email"
+              placeholder="Your Email"
+              value={form.email}
+              onChange={handleChange}
+              className="form-control form-control-lg"
+              required
+            />
+          </div>
+          <div className="col-12">
             <textarea
-              key={field}
-              name={field}
-              placeholder="Message"
-              value={form[field]}
+              name="message"
+              rows="5"
+              placeholder="Your Message"
+              value={form.message}
               onChange={handleChange}
-              className="w-full mb-4 p-3 border border-gray-300 rounded focus:border-blue-500 h-32"
+              className="form-control form-control-lg"
               required
             />
-          )
-        ))}
-        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition">
-          Send Message
-        </button>
-        {status && <p className="mt-4 text-center text-green-600">{status}</p>}
-      </form>
+          </div>
+          <div className="col-12 text-center">
+            <button type="submit" className="btn btn-primary btn-lg px-5">
+              Send Message
+            </button>
+          </div>
+          {status && (
+            <div className="col-12 text-center">
+              <div className={`alert ${status.startsWith('✅') ? 'alert-success':'alert-danger'} mt-3`}>
+                {status}
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
     </section>
   );
 }
